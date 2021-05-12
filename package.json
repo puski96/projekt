@@ -2,6 +2,10 @@
   "name": "projekt",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "5.7.6",
+    "node": "15.8.0"
+  },
   "dependencies": {
     "@splidejs/react-splide": "^0.4.4",
     "@splidejs/splide": "^2.4.21",
