@@ -22,7 +22,7 @@ public class CorsFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-        response.addHeader("Access-Control-Allow-Origin", "https://tenyeszto.herokuapp.com/");
+        response.addHeader("Access-Control-Allow-Origin", "https://tenyeszto1.herokuapp.com/");
 
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setHeader("Access-Control-Allow-Methods", "POST,GET,DELETE,PUT");
