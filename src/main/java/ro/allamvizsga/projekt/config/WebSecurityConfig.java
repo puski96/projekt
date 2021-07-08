@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         List<String> origin = new ArrayList<>();
-        origin.add("http://localhost:3000");
+        origin.add("https://tenyeszto1.herokuapp.com/");
 
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(origin);
