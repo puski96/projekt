@@ -25,7 +25,7 @@ import ro.allamvizsga.projekt.model.Keres;
 import ro.allamvizsga.projekt.repository.KeresRepository;
 import ro.allamvizsga.projekt.service.KeresService;
 
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "https://tenyeszto1.herokuapp.com", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/keres")
 public class KeresController {

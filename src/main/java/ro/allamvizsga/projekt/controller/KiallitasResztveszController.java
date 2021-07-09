@@ -26,7 +26,7 @@ import ro.allamvizsga.projekt.model.Tulajdonos;
 import ro.allamvizsga.projekt.repository.KiallResztVeszRepository;
 import ro.allamvizsga.projekt.service.KiallresztveszService;
 
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "https://tenyeszto1.herokuapp.com", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/kresztvesz")
 public class KiallitasResztveszController {

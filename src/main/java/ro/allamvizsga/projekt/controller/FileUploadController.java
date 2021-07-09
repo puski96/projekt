@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ch.qos.logback.core.net.SyslogOutputStream;
 
 
-@CrossOrigin(origins = "http://localhost:3003")
+@CrossOrigin(origins = "https://tenyeszto1.herokuapp.com")
 @RestController
 @RequestMapping("/api/fileupload")
 public class FileUploadController {

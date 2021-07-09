@@ -24,7 +24,7 @@ import ro.allamvizsga.projekt.model.Kisallat;
 import ro.allamvizsga.projekt.repository.KiallitasRepository;
 import ro.allamvizsga.projekt.service.KiallitasService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://tenyeszto1.herokuapp.com")
 @RestController
 @RequestMapping("/api/kiallitas")
 public class KiallitasController {

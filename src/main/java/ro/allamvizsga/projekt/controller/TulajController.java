@@ -29,7 +29,7 @@ import ro.allamvizsga.projekt.service.TulajdonosService;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "https://tenyeszto1.herokuapp.com", allowCredentials = "true")
 @RequestMapping("/api/tulaj")
 public class TulajController {
 

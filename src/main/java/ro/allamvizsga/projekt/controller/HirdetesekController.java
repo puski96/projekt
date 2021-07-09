@@ -27,7 +27,7 @@ import ro.allamvizsga.projekt.model.Kisallat;
 import ro.allamvizsga.projekt.repository.HirdetesekRepository;
 import ro.allamvizsga.projekt.service.HirdetesekService;
 
-@CrossOrigin(origins = "http://localhost:3003")
+@CrossOrigin(origins = "https://tenyeszto1.herokuapp.com")
 @RestController
 @RequestMapping("/api/hirdetesek")
 public class HirdetesekController {
