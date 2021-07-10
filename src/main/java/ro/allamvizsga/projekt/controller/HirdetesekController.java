@@ -46,7 +46,7 @@ public class HirdetesekController {
 	}
 	
 	
-	@PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
+	//@PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
 	@GetMapping()
 	public List<Hirdetesek> hirdetesek() {
 		return hirdetesekRepository.findAll();
