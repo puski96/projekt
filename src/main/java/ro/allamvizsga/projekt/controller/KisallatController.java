@@ -31,7 +31,7 @@ import ro.allamvizsga.projekt.repository.FajtaRepository;
 import ro.allamvizsga.projekt.repository.KisallatRepository;
 import ro.allamvizsga.projekt.service.KisallatService;
 
-@CrossOrigin(origins = "https://tenyeszto1.herokuapp.com", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 
 @RestController
 @RequestMapping("/api/kisallat")

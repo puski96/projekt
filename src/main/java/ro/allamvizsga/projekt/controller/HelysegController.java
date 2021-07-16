@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ro.allamvizsga.projekt.model.Helyseg;
 import ro.allamvizsga.projekt.repository.HelysegRepository;
 
-@CrossOrigin(origins = "https://tenyeszto1.herokuapp.com", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/helysegek")
 public class HelysegController {

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,13 +20,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import ro.allamvizsga.projekt.exception.ResourceNotFoundException;
+import ro.allamvizsga.projekt.message.KeresMsg;
+import ro.allamvizsga.projekt.message.TulajdonosMsg;
 import ro.allamvizsga.projekt.model.Egyesulet;
 import ro.allamvizsga.projekt.model.Hirdetesek;
 import ro.allamvizsga.projekt.model.Keres;
 import ro.allamvizsga.projekt.repository.KeresRepository;
 import ro.allamvizsga.projekt.service.KeresService;
 
-@CrossOrigin(origins = "https://tenyeszto1.herokuapp.com", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/keres")
 public class KeresController {
@@ -45,8 +48,9 @@ public class KeresController {
 	
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@GetMapping()
-	public List<Keres> lista() {
-		return keresRepo.findAll();
+	public List<KeresMsg> test() {
+ 		return keresRepo.findAll().stream().map(KeresMsg::new).collect(Collectors.toList());
+
 	}
 	
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")

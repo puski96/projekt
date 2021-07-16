@@ -53,7 +53,6 @@ private Set<Kisallat> kisallatok;
  private User user;
 
  @OneToMany(mappedBy = "tulajdonos", cascade = CascadeType.ALL)
- @JsonBackReference
 	private Set<Keres> keres;
 
  @ManyToOne(cascade = CascadeType.DETACH)

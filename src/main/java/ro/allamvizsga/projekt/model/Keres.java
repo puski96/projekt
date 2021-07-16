@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -24,6 +25,7 @@ public class Keres {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="tulaj_id")
+	@JsonBackReference
 	private Tulajdonos tulajdonos;
 	
 	

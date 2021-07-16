@@ -26,7 +26,7 @@ import ro.allamvizsga.projekt.repository.EgyesuletRepository;
 import ro.allamvizsga.projekt.service.EgyesuletService;
 
 
-@CrossOrigin(origins = "https://tenyeszto1.herokuapp.com", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/egyesulet")
 public class EgyesuletController {

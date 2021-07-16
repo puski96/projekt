@@ -29,7 +29,7 @@ import ro.allamvizsga.projekt.model.View;
 import ro.allamvizsga.projekt.repository.HirdetesekRepository;
 import ro.allamvizsga.projekt.repository.KepRepository;
 
-@CrossOrigin(origins = "https://tenyeszto1.herokuapp.com")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class KepController {
 	@Autowired

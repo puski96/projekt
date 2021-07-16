@@ -32,7 +32,7 @@ import ro.allamvizsga.projekt.repository.UserRoleRepository;
 import ro.allamvizsga.projekt.service.UserService;
 
 
-@CrossOrigin(origins = "https://tenyeszto1.herokuapp.com", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

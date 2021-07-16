@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ro.allamvizsga.projekt.model.User;
 import ro.allamvizsga.projekt.service.EmailService;
 
-@CrossOrigin(origins = "https://tenyeszto1.herokuapp.com", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @Controller
 public class EmailController {
 	

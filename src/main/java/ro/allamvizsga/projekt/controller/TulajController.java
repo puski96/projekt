@@ -29,7 +29,7 @@ import ro.allamvizsga.projekt.service.TulajdonosService;
 
 
 @RestController
-@CrossOrigin(origins = "https://tenyeszto1.herokuapp.com", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RequestMapping("/api/tulaj")
 public class TulajController {
 
@@ -52,6 +52,7 @@ public class TulajController {
 		return tulajRepo.findAll();
 	}
 	
+	@PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
 	@RequestMapping(method = RequestMethod.GET, path = "/get")
 	public List<TulajdonosMsg> test() {
  		return tulajRepo.findAll().stream().map(TulajdonosMsg::new).collect(Collectors.toList());
