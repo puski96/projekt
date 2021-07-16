@@ -33,7 +33,7 @@ public class KeresServiceImpl implements KeresService{
 		ujkeres.setNostenyek(keres.getNostenyek());
 		ujkeres.setFajta(keres.getFajta());
 		ujkeres.setSzuldat(keres.getSzuldat());
-		Tulajdonos ujTulajdonos=tulajdonosRepository.findByNev("Forgacs Lehel");
+		Tulajdonos ujTulajdonos=tulajdonosRepository.findByNev(keres.getTulajdonos().getNev());
 		ujkeres.setTulajdonos(ujTulajdonos);		
         keresRepo.save(ujkeres);
 	}
