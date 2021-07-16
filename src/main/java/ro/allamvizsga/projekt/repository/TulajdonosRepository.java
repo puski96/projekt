@@ -23,5 +23,7 @@ public interface TulajdonosRepository extends JpaRepository<Tulajdonos, Long> {
 	
 	public Tulajdonos getOneByUserId(Long email);
 	public Tulajdonos getOne(Long id);
+	public Tulajdonos findByNev(String nev);
+
 
 }
