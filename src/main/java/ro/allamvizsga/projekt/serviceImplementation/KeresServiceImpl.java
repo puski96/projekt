@@ -18,7 +18,18 @@ public class KeresServiceImpl implements KeresService{
 	KeresRepository keresRepo;
 	
 	public void kiment(Keres keres) {
-		keresRepo.save(keres);
+		Keres ujkeres=new Keres();
+		ujkeres.setAnyabalful(keres.getAnyabalful());
+		ujkeres.setAnyajobbful(keres.getAnyajobbful());
+		ujkeres.setApabalful(keres.getApabalful());
+		ujkeres.setApajobbful(keres.getApajobbful());
+		ujkeres.setBakok(keres.getBakok());
+		ujkeres.setNostenyek(keres.getNostenyek());
+		ujkeres.setFajta(keres.getFajta());
+		ujkeres.setSzuldat(keres.getSzuldat());
+		Tulajdonos ujTulajdonos=tulajdonosRepository.findByNev("Forgacs Lehel");
+		ujkeres.setTulajdonos(ujTulajdonos);		
+        keresRepo.save(ujkeres);
 	}
 	@Override
 	public Optional<Keres> findOneById(Long id) {
