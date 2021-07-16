@@ -52,7 +52,6 @@ public class TulajController {
 		return tulajRepo.findAll();
 	}
 	
-	@PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
 	@RequestMapping(method = RequestMethod.GET, path = "/get")
 	public List<TulajdonosMsg> test() {
  		return tulajRepo.findAll().stream().map(TulajdonosMsg::new).collect(Collectors.toList());
