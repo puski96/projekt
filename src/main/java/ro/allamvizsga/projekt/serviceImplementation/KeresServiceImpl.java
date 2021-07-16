@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ro.allamvizsga.projekt.model.Egyesulet;
+import ro.allamvizsga.projekt.model.Hirdetesek;
 import ro.allamvizsga.projekt.model.Keres;
+import ro.allamvizsga.projekt.model.Tulajdonos;
 import ro.allamvizsga.projekt.repository.KeresRepository;
 import ro.allamvizsga.projekt.repository.TulajdonosRepository;
 import ro.allamvizsga.projekt.service.KeresService;
@@ -17,6 +19,7 @@ public class KeresServiceImpl implements KeresService{
 
 	@Autowired
 	KeresRepository keresRepo;
+
 	@Autowired
 	TulajdonosRepository tulajdonosRepository;
 	
