@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void update(Long id) {
         User user = userRepo.getOne(id);
                 Set<UserRole> userRoles = new HashSet<>();
-        userRoles.add(userRoleRepo.findById(2L).get());
+        userRoles.add(userRoleRepo.findById(4L).get());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setConfirmed(true);
         user.setUserRoles(userRoles);
