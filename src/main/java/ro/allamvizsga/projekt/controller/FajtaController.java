@@ -25,70 +25,71 @@ import ro.allamvizsga.projekt.repository.FajtaRepository;
 import ro.allamvizsga.projekt.repository.KisallatRepository;
 import ro.allamvizsga.projekt.service.FajtaService;
 
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "http://tenyeszto1.herokuapp.com", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/fajta")
 public class FajtaController {
 
 	@Autowired
 	FajtaService fajtaService;
-	
+
 	@Autowired
 	FajtaRepository fajtaRepo;
-	
+
 	@RequestMapping(method = RequestMethod.POST, path = "/test", consumes = "application/json", produces = "application/json")
 	public String test(@RequestBody Fajta fajta) {
 		fajtaService.kiment(fajta);
 		return "sikeres";
 	}
+
 	@GetMapping()
 	public List<Fajta> hello() {
 		System.out.println();
 		return fajtaRepo.findByOrderByIdAsc();
 	}
-	
+
 	@Autowired
 	KisallatRepository kisallatRepo;
-	
+
 	@RequestMapping(method = RequestMethod.GET, path = "/counterI")
-	public List<Object> count(){
+	public List<Object> count() {
 		System.out.println(fajtaRepo.countTotalKisallatokByFajtaClassI());
 		return fajtaRepo.countTotalKisallatokByFajtaClassI();
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, path = "/counterG")
-	public List<Object> countG(){
+	public List<Object> countG() {
 		System.out.println(fajtaRepo.countTotalKisallatokByFajtaClassG());
 		return fajtaRepo.countTotalKisallatokByFajtaClassG();
 	}
+
 	@RequestMapping(method = RequestMethod.GET, path = "/counterT")
-	public List<Object> countT(){
+	public List<Object> countT() {
 		System.out.println(fajtaRepo.countKisallatok());
 		return fajtaRepo.countKisallatok();
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, path = "/{string}")
-	public Optional<Fajta> getOne(@PathVariable String string){
+	public Optional<Fajta> getOne(@PathVariable String string) {
 		return fajtaRepo.findByRovidites(string);
 	}
+
 	@RequestMapping(method = RequestMethod.GET, path = "/filtered/{string}")
-	public List<Fajta> nyulak(@PathVariable String string){
+	public List<Fajta> nyulak(@PathVariable String string) {
 		return fajtaRepo.findByAllattipusContainingIgnoreCase(string);
-		
+
 	}
-//	@RequestMapping(method = RequestMethod.GET, path = "/nyulak")
-//	public List<Fajta> findByAllattipus(){
-//		List<Fajta> osszes= fajtaRepo.findAll();
-//		List<Fajta> nyulak = null;
-//		for (int i = 0; i < osszes.size(); i++) {
-//			if(osszes.get(i).getAllattipus().equals("iepure")) {
-//				nyulak.add(osszes.get(i));
-//			}
-//		}
-//		return nyulak;
-//		
-//	}
-	
-		
-	
+	// @RequestMapping(method = RequestMethod.GET, path = "/nyulak")
+	// public List<Fajta> findByAllattipus(){
+	// List<Fajta> osszes= fajtaRepo.findAll();
+	// List<Fajta> nyulak = null;
+	// for (int i = 0; i < osszes.size(); i++) {
+	// if(osszes.get(i).getAllattipus().equals("iepure")) {
+	// nyulak.add(osszes.get(i));
+	// }
+	// }
+	// return nyulak;
+	//
+	// }
+
 }

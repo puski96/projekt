@@ -31,8 +31,7 @@ import ro.allamvizsga.projekt.repository.UserRepository;
 import ro.allamvizsga.projekt.repository.UserRoleRepository;
 import ro.allamvizsga.projekt.service.UserService;
 
-
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "http://tenyeszto1.herokuapp.com", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -42,9 +41,10 @@ public class AuthController {
 
     @Autowired
     UserRoleRepository userRoleRepo;
-    
+
     @Autowired
     UserRepository userRepo;
+
     @PostMapping("/registration")
     public ResponseEntity<Object> registration(@Valid @RequestBody User user) {
         try {
@@ -54,16 +54,17 @@ public class AuthController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
-	@PreAuthorize("hasRole('SUPERADMIN')")
+
+    @PreAuthorize("hasRole('SUPERADMIN')")
     @PutMapping("/upgrade/{id}")
     public void saveMember(@PathVariable Long id) {
-		userService.update(id);
-	}
-	
-	@PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
-	@RequestMapping(method = RequestMethod.GET, path="/{userName}")
-	public User geUser(@PathVariable String userName) {
-		return userRepo.findOneByUserName(userName);
-		
-	}
+        userService.update(id);
+    }
+
+    @PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
+    @RequestMapping(method = RequestMethod.GET, path = "/{userName}")
+    public User geUser(@PathVariable String userName) {
+        return userRepo.findOneByUserName(userName);
+
+    }
 }
