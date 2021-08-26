@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import ro.allamvizsga.projekt.model.Helyseg;
 import ro.allamvizsga.projekt.repository.HelysegRepository;
 
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "http://tenyeszto1.herokuapp.com", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/helysegek")
 public class HelysegController {
 	@Autowired
 	HelysegRepository helysegRepo;
-	
+
 	@GetMapping()
 	public List<Helyseg> hello() {
 		System.out.println();

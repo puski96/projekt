@@ -26,60 +26,63 @@ import ro.allamvizsga.projekt.model.Tulajdonos;
 import ro.allamvizsga.projekt.repository.KiallResztVeszRepository;
 import ro.allamvizsga.projekt.service.KiallresztveszService;
 
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "http://tenyeszto1.herokuapp.com", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/kresztvesz")
 public class KiallitasResztveszController {
 
 	@Autowired
 	KiallresztveszService kresztveszService;
-	
+
 	@Autowired
 	KiallResztVeszRepository kiallresztveszRepo;
-	
+
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@RequestMapping(method = RequestMethod.POST, path = "/save", consumes = "application/json", produces = "application/json")
 	public String mentes(@RequestBody KiallresztveszSaveMsg kresztvesz) {
 		kresztveszService.kiment(kresztvesz);
 		return "sikeres";
 	}
-	
+
 	@GetMapping()
 	public List<Kiallresztvesz> lista() {
 		return kiallresztveszRepo.findAll();
 	}
-	
+
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@RequestMapping(method = RequestMethod.POST, path = "/update", consumes = "application/json", produces = "application/json")
 	public String update(@RequestBody KiallresztveszSaveMsg kiallresztveszSaveMsg) {
 		kresztveszService.updateKiallresztvesz(kiallresztveszSaveMsg);
 		return "sikeres";
 	}
-	
+
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
-	public Optional<Kiallresztvesz> getOne(@PathVariable Long id){
+	public Optional<Kiallresztvesz> getOne(@PathVariable Long id) {
 		return kiallresztveszRepo.findById(id);
 	}
+
 	@RequestMapping(method = RequestMethod.GET, path = "/kiallitasok/{id}")
-	public List<Kiallresztvesz> findByKiallitas(@PathVariable Long id){
+	public List<Kiallresztvesz> findByKiallitas(@PathVariable Long id) {
 		return kiallresztveszRepo.findAllByKiallitasId(id);
 	}
-	
+
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@RequestMapping(method = RequestMethod.GET, path = "/get/{id}")
-	public Optional<Kiallresztvesz> findOne(@PathVariable Long id){
+	public Optional<Kiallresztvesz> findOne(@PathVariable Long id) {
 		return kiallresztveszRepo.findByKisallatId(id);
 	}
-	
+
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteReszvetel(@PathVariable Long id) {
-        Kiallresztvesz kiallresztvesz = kiallresztveszRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Tulajdonos not exist with id :" + id));;
-        
-        kiallresztveszRepo.delete(kiallresztvesz);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return ResponseEntity.ok(response);
-    }
+	public ResponseEntity<Map<String, Boolean>> deleteReszvetel(@PathVariable Long id) {
+		Kiallresztvesz kiallresztvesz = kiallresztveszRepo.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Tulajdonos not exist with id :" + id));
+		;
+
+		kiallresztveszRepo.delete(kiallresztvesz);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("deleted", Boolean.TRUE);
+		return ResponseEntity.ok(response);
+	}
 }

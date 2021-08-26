@@ -27,65 +27,64 @@ import ro.allamvizsga.projekt.model.Kisallat;
 import ro.allamvizsga.projekt.repository.HirdetesekRepository;
 import ro.allamvizsga.projekt.service.HirdetesekService;
 
-@CrossOrigin(origins = "http://localhost:3003")
+@CrossOrigin(origins = "http://tenyeszto1.herokuapp.com")
 @RestController
 @RequestMapping("/api/hirdetesek")
 public class HirdetesekController {
 
 	@Autowired
 	HirdetesekService hirdetesekService;
-	
+
 	@Autowired
 	HirdetesekRepository hirdetesekRepository;
-	
+
 	@PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
 	@RequestMapping(method = RequestMethod.POST, path = "/test", consumes = "application/json", produces = "application/json")
 	public void mentes(@RequestBody HirdetesekSaveMsg hirdetesek) {
 		hirdetesekService.kiment(hirdetesek);
 		System.out.println(hirdetesek);
 	}
-	
-	
-	//@PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
+
+	// @PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') ||
+	// hasRole('SUPERADMIN')")
 	@GetMapping()
 	public List<Hirdetesek> hirdetesek() {
 		return hirdetesekRepository.findAll();
-				}
-	
+	}
+
 	@RequestMapping(method = RequestMethod.GET, path = "/counter")
-	public List<Object> count(){
+	public List<Object> count() {
 		System.out.println(hirdetesekRepository.countTotalHirdetesekByEladva());
 		return hirdetesekRepository.countTotalHirdetesekByEladva();
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, path = "/get")
 	public List<HirdetesekMsg> test() {
- 		return hirdetesekRepository.findAll().stream().map(HirdetesekMsg::new).collect(Collectors.toList());
+		return hirdetesekRepository.findAll().stream().map(HirdetesekMsg::new).collect(Collectors.toList());
 	}
+
 	@PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
 	@RequestMapping(method = RequestMethod.GET, path = "/hirdeteseim/{id}")
-	public List<Hirdetesek> findOne(@PathVariable Long id){
+	public List<Hirdetesek> findOne(@PathVariable Long id) {
 		return hirdetesekRepository.findAllByTulajdonosId(id);
 	}
-	
+
 	@PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
 	@PostMapping("/save")
-    public ResponseEntity<Void> saverOrUpdateHirdetes(@RequestBody HirdetesekSaveMsg hirdetes) {
-        hirdetesekService.saveOrUpdateHirdetes(hirdetes);
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    }
-	
-	
+	public ResponseEntity<Void> saverOrUpdateHirdetes(@RequestBody HirdetesekSaveMsg hirdetes) {
+		hirdetesekService.saveOrUpdateHirdetes(hirdetes);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+
 	@PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
 	@DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteHirdetes(@PathVariable Long id) {
-        Hirdetesek hirdetes = hirdetesekRepository.findById(id).get();
-        
-        hirdetesekRepository.delete(hirdetes);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("delete", Boolean.TRUE);
-        return ResponseEntity.ok(response);
-    }
-	
-	
+	public ResponseEntity<Map<String, Boolean>> deleteHirdetes(@PathVariable Long id) {
+		Hirdetesek hirdetes = hirdetesekRepository.findById(id).get();
+
+		hirdetesekRepository.delete(hirdetes);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("delete", Boolean.TRUE);
+		return ResponseEntity.ok(response);
+	}
+
 }

@@ -31,7 +31,7 @@ import ro.allamvizsga.projekt.repository.FajtaRepository;
 import ro.allamvizsga.projekt.repository.KisallatRepository;
 import ro.allamvizsga.projekt.service.KisallatService;
 
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "http://tenyeszto1.herokuapp.com", allowCredentials = "true")
 
 @RestController
 @RequestMapping("/api/kisallat")
@@ -39,65 +39,67 @@ public class KisallatController {
 
 	@Autowired
 	KisallatService kisallatService;
-	
+
 	@Autowired
 	KisallatRepository kisallatRepo;
-	
+
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@RequestMapping(method = RequestMethod.POST, path = "/save", consumes = "application/json", produces = "application/json")
 	public String mentes(@RequestBody KisallatSaveMsg kisallat) {
 		kisallatService.kiment(kisallat);
 		return "sikeres";
 	}
-	
+
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@RequestMapping(method = RequestMethod.GET, path = "/get")
- 		public List<KisallatSelectMsg> test() {
- 			return kisallatService.lista();
+	public List<KisallatSelectMsg> test() {
+		return kisallatService.lista();
 	}
-	
+
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@GetMapping()
 	public List<Kisallat> allatok() {
 		List<Kisallat> k = kisallatRepo.findAll();
 		return k;
 	}
-	
+
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@RequestMapping(method = RequestMethod.POST, path = "/update", consumes = "application/json", produces = "application/json")
 	public String update(@RequestBody KisallatSaveMsg kisallat) {
 		kisallatService.updateKisallat(kisallat);
 		return "sikeres";
 	}
-	
+
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
-	public Optional<Kisallat> getOne(@PathVariable Long id){
+	public Optional<Kisallat> getOne(@PathVariable Long id) {
 		return kisallatRepo.findById(id);
 	}
-	
+
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@RequestMapping(method = RequestMethod.GET, path = "/profil/{id}")
-	public Optional<Kisallat> findOne(@PathVariable Long id){
+	public Optional<Kisallat> findOne(@PathVariable Long id) {
 		return kisallatRepo.findByTulajId(id);
 	}
-	
+
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteKisallat(@PathVariable Long id) {
-        Kisallat kisallat= kisallatRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Tulajdonos not exist with id :" + id));;
-        
-        kisallatRepo.delete(kisallat);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return ResponseEntity.ok(response);
-    }
-	
+	public ResponseEntity<Map<String, Boolean>> deleteKisallat(@PathVariable Long id) {
+		Kisallat kisallat = kisallatRepo.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Tulajdonos not exist with id :" + id));
+		;
+
+		kisallatRepo.delete(kisallat);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("deleted", Boolean.TRUE);
+		return ResponseEntity.ok(response);
+	}
+
 	@Autowired
 	FajtaRepository fajtaRepository;
-	
-//	@RequestMapping(method = RequestMethod.GET, path = "/counter")
-//	public List<Object[]> run() {
-//		return kisallatRepo.countTotalKisallatokByFajtaClass();
-//	}
-	}
+
+	// @RequestMapping(method = RequestMethod.GET, path = "/counter")
+	// public List<Object[]> run() {
+	// return kisallatRepo.countTotalKisallatokByFajtaClass();
+	// }
+}

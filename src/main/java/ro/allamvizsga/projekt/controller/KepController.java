@@ -29,7 +29,7 @@ import ro.allamvizsga.projekt.model.View;
 import ro.allamvizsga.projekt.repository.HirdetesekRepository;
 import ro.allamvizsga.projekt.repository.KepRepository;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://tenyeszto1.herokuapp.com")
 @RestController
 public class KepController {
 	@Autowired
@@ -38,60 +38,59 @@ public class KepController {
 	/*
 	 * List All Files
 	 */
-    @JsonView(View.FileInfo.class)
+	@JsonView(View.FileInfo.class)
 	@GetMapping("/api/file/all")
 	public List<Kepfeltolt> getListFiles() {
 		return kepRepository.findAllByOrderByIdDesc();
-		
+
 	}
-	
-    /*
-     * Download Files
-     */
+
+	/*
+	 * Download Files
+	 */
 	@GetMapping("/api/file/{id}")
 	public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
 		Optional<Kepfeltolt> fileOptional = kepRepository.findById(id);
-		
-		if(fileOptional.isPresent()) {
+
+		if (fileOptional.isPresent()) {
 			Kepfeltolt file = fileOptional.get();
 			return ResponseEntity.ok()
 					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
-					.body(file.getPic());	
+					.body(file.getPic());
 		}
-		
+
 		return ResponseEntity.status(404).body(null);
 	}
-	
+
 	@Autowired
 	HirdetesekRepository hirdetesekRepository;
-	
-	@PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
-    @PostMapping("/api/file/upload/{id}")
-    public String uploadMultipartFile(@RequestParam("uploadfile") MultipartFile file, @PathVariable Long id) {
-    	try {
-    		Hirdetesek hirdetesek=hirdetesekRepository.getOne(id);
-    		// save file to PostgreSQL
-    		
-    		Kepfeltolt dbImage = new Kepfeltolt();
-            
-            	dbImage.setHirdetesek(hirdetesek);
-	            dbImage.setName(file.getName());
-	            dbImage.setPic(file.getBytes());
-	            dbImage.setMimetype("image/jpeg");
-           
-	    	kepRepository.save(dbImage);
-	    	return "File uploaded successfully! -> filename = " + file.getOriginalFilename();
-		} catch (	Exception e) {
-			return "FAIL! Maybe You had uploaded the file before or the file's size > 500KB";
-		}    
-    }
-	
-	@PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
-    @PostMapping("api/upload")
-	public String handleFileUpload(@RequestParam("file") MultipartFile file,
-			RedirectAttributes redirectAttributes) {
 
-    	kepRepository.save(file);
+	@PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
+	@PostMapping("/api/file/upload/{id}")
+	public String uploadMultipartFile(@RequestParam("uploadfile") MultipartFile file, @PathVariable Long id) {
+		try {
+			Hirdetesek hirdetesek = hirdetesekRepository.getOne(id);
+			// save file to PostgreSQL
+
+			Kepfeltolt dbImage = new Kepfeltolt();
+
+			dbImage.setHirdetesek(hirdetesek);
+			dbImage.setName(file.getName());
+			dbImage.setPic(file.getBytes());
+			dbImage.setMimetype("image/jpeg");
+
+			kepRepository.save(dbImage);
+			return "File uploaded successfully! -> filename = " + file.getOriginalFilename();
+		} catch (Exception e) {
+			return "FAIL! Maybe You had uploaded the file before or the file's size > 500KB";
+		}
+	}
+
+	@PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
+	@PostMapping("api/upload")
+	public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+
+		kepRepository.save(file);
 		redirectAttributes.addFlashAttribute("message",
 				"You successfully uploaded " + file.getOriginalFilename() + "!");
 
@@ -99,13 +98,13 @@ public class KepController {
 	}
 
 	@PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteKep(@PathVariable Long id) {
-        Kepfeltolt kepfeltolt = kepRepository.findById(id).get();
-        
-        kepRepository.delete(kepfeltolt);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("delete", Boolean.TRUE);
-        return ResponseEntity.ok(response);
-    }
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Map<String, Boolean>> deleteKep(@PathVariable Long id) {
+		Kepfeltolt kepfeltolt = kepRepository.findById(id).get();
+
+		kepRepository.delete(kepfeltolt);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("delete", Boolean.TRUE);
+		return ResponseEntity.ok(response);
+	}
 }

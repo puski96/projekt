@@ -17,39 +17,35 @@ import org.springframework.web.multipart.MultipartFile;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 
-
-@CrossOrigin(origins = "http://localhost:3003")
+@CrossOrigin(origins = "http://tenyeszto1.herokuapp.com")
 @RestController
 @RequestMapping("/api/fileupload")
 public class FileUploadController {
-  public static String uploadDirectory = System.getProperty("user.dir","E:/probaReact/projekt")+"/uploads";
-    
-  
-  @RequestMapping("/")
-  public String UploadPage(Model model) {
-	  System.out.println(uploadDirectory);
-	  return "uploadview";
+	public static String uploadDirectory = System.getProperty("user.dir", "E:/probaReact/projekt") + "/uploads";
 
-  }
-  
+	@RequestMapping("/")
+	public String UploadPage(Model model) {
+		System.out.println(uploadDirectory);
+		return "uploadview";
+
+	}
+
 	@PreAuthorize("hasRole('USER') || hasRole('ADMIN') || hasRole('SUPERUSER') || hasRole('SUPERADMIN')")
 	@RequestMapping("/upload")
-  public String upload(Model model,@RequestParam("files") MultipartFile[] files) {
-	  System.out.println(uploadDirectory);
+	public String upload(Model model, @RequestParam("files") MultipartFile[] files) {
+		System.out.println(uploadDirectory);
 
-	  StringBuilder fileNames = new StringBuilder();
-	  for (MultipartFile file : files) {
-		  Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
-		  try {
-			Files.write(fileNameAndPath, file.getBytes());
-		} catch (IOException e) {
-			e.printStackTrace();
+		StringBuilder fileNames = new StringBuilder();
+		for (MultipartFile file : files) {
+			Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+			try {
+				Files.write(fileNameAndPath, file.getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-	  }
-	  model.addAttribute("msg", "Successfully uploaded files "+fileNames.toString());
-	  return "uploadstatusview";
-  }
-  
+		model.addAttribute("msg", "Successfully uploaded files " + fileNames.toString());
+		return "uploadstatusview";
+	}
 
-  
 }

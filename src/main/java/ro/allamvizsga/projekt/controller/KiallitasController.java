@@ -24,46 +24,52 @@ import ro.allamvizsga.projekt.model.Kisallat;
 import ro.allamvizsga.projekt.repository.KiallitasRepository;
 import ro.allamvizsga.projekt.service.KiallitasService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://tenyeszto1.herokuapp.com")
 @RestController
 @RequestMapping("/api/kiallitas")
 public class KiallitasController {
 
 	@Autowired
 	KiallitasService kiallitasService;
-	
+
 	@Autowired
 	KiallitasRepository kiallitasRepo;
-	
+
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@RequestMapping(method = RequestMethod.POST, path = "/save", consumes = "application/json", produces = "application/json")
 	public String mentes(@RequestBody Kiallitas kiallitas) {
 		kiallitasService.kiment(kiallitas);
 		return "sikeres";
 	}
+
 	@GetMapping()
 	public List<Kiallitas> hello() {
 		return kiallitasRepo.findAll();
 	}
+
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@RequestMapping(method = RequestMethod.POST, path = "/update", consumes = "application/json", produces = "application/json")
 	public String update(@RequestBody Kiallitas kiallitas) {
 		kiallitasService.updateKiallitas(kiallitas);
 		return "sikeres";
 	}
+
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
-	public Optional<Kiallitas> getOne(@PathVariable Long id){
+	public Optional<Kiallitas> getOne(@PathVariable Long id) {
 		return kiallitasRepo.findById(id);
 	}
+
 	@PreAuthorize("hasRole('ADMIN') || hasRole('SUPERADMIN')")
 	@DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteKiallitas(@PathVariable Long id) {
-        Kiallitas kiallitas= kiallitasRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Tulajdonos not exist with id :" + id));;
-        
-        kiallitasRepo.delete(kiallitas);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return ResponseEntity.ok(response);
-    }
+	public ResponseEntity<Map<String, Boolean>> deleteKiallitas(@PathVariable Long id) {
+		Kiallitas kiallitas = kiallitasRepo.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Tulajdonos not exist with id :" + id));
+		;
+
+		kiallitasRepo.delete(kiallitas);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("deleted", Boolean.TRUE);
+		return ResponseEntity.ok(response);
+	}
 }
