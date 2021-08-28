@@ -25,7 +25,7 @@ import ro.allamvizsga.projekt.repository.FajtaRepository;
 import ro.allamvizsga.projekt.repository.KisallatRepository;
 import ro.allamvizsga.projekt.service.FajtaService;
 
-@CrossOrigin(allowCredentials = "true")
+@CrossOrigin(origins = "https://tenyeszto1.herokuapp.com", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/fajta")
 public class FajtaController {
